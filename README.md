@@ -5,6 +5,7 @@ Projeto Teste Tecnico (Usuarios da Rede Social)
 Este projeto foi criado com o Angular Cli.
 O Backend foi realizado integrando uma API REST.
 
+
 Escopo 
 
 Criar um projedo Angular, integrando uma API REST com as seguintes funcionalidades.
@@ -22,10 +23,12 @@ Email, Telefone, Website, City, CEP, Rua, Numero, Latitude e Longitude).
 
 *Todas as telas devem exibir algum componente de loading enquando fazem chamadas http.
 
+
 Como instalar - 
 
 Baixe ou clone este repositório usando git clone https://github.com/LRDSILVA3/teste-tecnico.git.
 Dentro do diretório, instale as dependências usando npm install.
+
 
 Como executar - 
 
