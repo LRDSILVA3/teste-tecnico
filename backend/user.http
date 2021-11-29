@@ -1,0 +1,2 @@
+GET https://jsonplaceholder.typicode.com/users
+Content-Type: application/application/json
