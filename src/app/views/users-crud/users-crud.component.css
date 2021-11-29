@@ -1,0 +1,40 @@
+table {
+  width: 100%;
+}
+.modal {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #333;
+  min-width: 1000px;
+  position: fixed;
+  left: 50%;
+  padding: 24px;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.overlay {
+  background: #000;
+  height: 100vh;
+  left: 0;
+  opacity: 0.5;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+}
+.center{
+  text-align: center;
+}
+
+td,th{
+  text-align: center;
+}
+input{
+  width: 400px;
+  height: 30px;
+  border-radius: 10px;
+}
+
+.left{
+  align-content: flex-end;
+}

@@ -1,0 +1,32 @@
+/*Side menu customization */
+.sidenav{
+  background-color: #000000;
+  width: 200px;
+  position:fixed ;
+
+}
+.sidenav a{
+  color: #FFF;
+
+}
+.sidenav i{
+  padding-right: 10px;
+
+}
+.content{
+  padding-top: 100px;
+  padding:16px;
+  background-color: #FFF;
+
+}
+.sidenav .logo{
+
+  max-height: 85px;
+
+
+}
+.loader-container{
+
+
+z-index:99;
+}

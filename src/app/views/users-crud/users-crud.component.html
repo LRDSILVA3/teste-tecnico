@@ -1,0 +1,330 @@
+<div>
+  Procurar:
+
+  <input
+    type="search"
+    placeholder="Buscar..."
+    (keyup)="filtrarNome($any($event.target).value)"
+  />
+
+  <mat-icon
+    aria-hidden="false"
+    aria-label="refresh"
+    (click)="filtrarNome($any($event.target).value)"
+    >refresh</mat-icon
+  >
+</div>
+<table mat-table [dataSource]="dataSourceTableUsers" class="mat-elevation-z8">
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Id Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef class="center">Id</th>
+    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef class="center">Name</th>
+    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+  </ng-container>
+
+  <!-- Email Column -->
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef class="center">Email</th>
+    <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+  </ng-container>
+
+  <!-- City Column -->
+  <ng-container matColumnDef="city">
+    <th mat-header-cell *matHeaderCellDef class="center">Cidade</th>
+    <td mat-cell *matCellDef="let element">{{ element.address.city }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    (click)="selectRowUser(row)"
+  ></tr>
+</table>
+<mat-paginator
+  [pageSizeOptions]="[5, 10, 20, 50]"
+  showFirstLastButtons
+  aria-label="Select page of periodic elements"
+>
+</mat-paginator>
+
+<!--  MODAL INFO        -->
+
+<!--  USER LOGIN AND USERNAME      -->
+<ng-container *ngIf="mostrarModalProfile">
+  <div (click)="exitModelUser()" class="overlay"></div>
+  <div class="modal">
+    <mat-card-title class="center">Informações do Usuario
+    <mat-icon
+        aria-hidden="false"
+        aria-label="refresh"
+        (click)="refreshProfile()"
+        >refresh</mat-icon>
+      </mat-card-title>
+    <br />
+
+    <button
+      mat-raised-button
+      style="position: absolute; right: 20px"
+      color="primary"
+      (click)="openPostPag()"
+    >
+      Abrir Posts
+    </button>
+    <br />
+    <mat-card-subtitle class="center"> Dados no Sistema </mat-card-subtitle><br><br>
+    <table
+      mat-table
+      [dataSource]="dataSourceTableProfile"
+      class="mat-elevation-z8"
+    >
+      <!-- Id Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef class="center">Id</th>
+        <td mat-cell class="center" *matCellDef="let element">
+          {{ element.id }}
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="center">Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <!-- Username Column -->
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef class="center">Username</th>
+        <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsProfile"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsProfile"></tr>
+    </table>
+
+    <br /><br />
+    <!-- Contact -->
+    <mat-card-subtitle class="center">Dados para Contato <br><br>
+      <table
+        mat-table
+        [dataSource]="dataSourceTableProfile"
+        class="mat-elevation-z8"
+      >
+        <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+        <!-- Email Column -->
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef class="center">Email</th>
+          <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+        </ng-container>
+
+        <!-- Phone Column -->
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef class="center">Telefone</th>
+          <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+        </ng-container>
+
+        <!-- Websait Column -->
+        <ng-container matColumnDef="website">
+          <th mat-header-cell *matHeaderCellDef class="center">Website</th>
+          <td mat-cell *matCellDef="let element">{{ element.website }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsContact"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsContact"></tr>
+      </table>
+    </mat-card-subtitle>
+    <br /><br />
+
+    <!-- Address -->
+
+    <mat-card-subtitle class="center">Dados de Endereço <br><br>
+      <table
+        mat-table
+        [dataSource]="dataSourceTableProfile"
+        class="mat-elevation-z8"
+      >
+        <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+        <!-- city Column -->
+
+        <ng-container matColumnDef="city">
+          <th mat-header-cell *matHeaderCellDef class="center">City</th>
+          <td mat-cell *matCellDef="let element">{{ element.city }}</td>
+        </ng-container>
+
+        <!-- zip Code -->
+        <ng-container matColumnDef="zipcode">
+          <th mat-header-cell *matHeaderCellDef class="center">CEP</th>
+          <td mat-cell *matCellDef="let element">{{ element.zipcode }}</td>
+        </ng-container>
+
+        <!-- street Column -->
+        <ng-container matColumnDef="street">
+          <th mat-header-cell *matHeaderCellDef class="center">Rua</th>
+          <td mat-cell *matCellDef="let element">{{ element.street }}</td>
+        </ng-container>
+
+        <!--suite Column -->
+        <ng-container matColumnDef="suite">
+          <th mat-header-cell *matHeaderCellDef class="center">Numero</th>
+          <td mat-cell *matCellDef="let element">{{ element.suite }}</td>
+        </ng-container>
+
+        <!--Lat Column -->
+        <ng-container matColumnDef="lat">
+          <th mat-header-cell *matHeaderCellDef class="center">Latitude</th>
+          <td mat-cell *matCellDef="let element">{{ element.lat }}</td>
+        </ng-container>
+        <!--Lng Column -->
+        <ng-container matColumnDef="lng">
+          <th mat-header-cell *matHeaderCellDef class="center">Longitude</th>
+          <td mat-cell *matCellDef="let element">{{ element.lng }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnslocalization"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumnslocalization"
+        ></tr>
+      </table>
+    </mat-card-subtitle>
+  </div>
+</ng-container>
+
+<!-- Post Modal -->
+<ng-container *ngIf="mostrarModalPost">
+  <div (click)="exitModelPost()" class="overlay"></div>
+  <div class="modal">
+    <mat-card-title class="center">Posts do Usuario
+
+  </mat-card-title>
+    <br />
+    <table
+      mat-table
+      [dataSource]="dataSourceTablePost"
+      class="mat-elevation-z8"
+    >
+      <!-- Id User -->
+      <ng-container matColumnDef="userId">
+        <th mat-header-cell *matHeaderCellDef class="center">Id User</th>
+        <td mat-cell class="center" *matCellDef="let element">
+          {{ element.userId }}
+        </td>
+      </ng-container>
+      <!-- Id Post -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef class="center">Id Post</th>
+        <td mat-cell class="center" *matCellDef="let element">
+          {{ element.id }}
+        </td>
+      </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef class="center">Title</th>
+        <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+      </ng-container>
+
+      <!-- Body Column -->
+      <ng-container matColumnDef="body">
+        <th mat-header-cell *matHeaderCellDef class="center">Body</th>
+        <td mat-cell *matCellDef="let element">{{ element.body }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsPost"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumnsPost"
+        (click)="selectRowPost(row)"
+      ></tr>
+    </table>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="mostrarModalPost">
+  <div (click)="exitModelPost()" class="overlay"></div>
+  <div class="modal">
+    <mat-card-title class="center">Posts do Usuario
+      <mat-icon aria-hidden="false" aria-label="refresh" (click)="refreshPost()" >refresh</mat-icon>
+    </mat-card-title><br /><br />
+    <table
+      mat-table
+      [dataSource]="dataSourceTablePost"
+      class="mat-elevation-z8"
+    >
+      <!-- Id Post -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef class="center">Id Post</th>
+        <td mat-cell class="center" *matCellDef="let element">
+          {{ element.id }}
+        </td>
+      </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef class="center">Title</th>
+        <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsPost"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumnsPost"
+        (click)="selectRowPost(row)"
+      ></tr>
+    </table>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="mostrarModalComment">
+  <div (click)="exitModelComment()" class="overlay"></div>
+  <div class="modal">
+    <mat-card-title class="center"
+      >Comentarios na Postagem
+      <mat-icon
+        aria-hidden="false"
+        aria-label="refresh"
+        (click)="refreshComment()"
+        >refresh</mat-icon
+      > </mat-card-title
+    ><br />
+    <table
+      mat-table
+      [dataSource]="dataSourceTableComment"
+      class="mat-elevation-z8"
+    >
+      <!-- Id Post -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef class="center">Id Comentario</th>
+        <td mat-cell class="center" *matCellDef="let element">
+          {{ element.id }}
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="center">Comentario</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef class="center">Email</th>
+        <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsComment"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsComment"></tr>
+    </table>
+  </div>
+</ng-container>
